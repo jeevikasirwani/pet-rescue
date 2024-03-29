@@ -16,9 +16,9 @@
       <div class="card">
         <!-- table -->
         <div class="table-responsive overflow-y-hidden">
-          <table class="table mb-0 text-nowrap table-hover table-centered">
+          <table class="table mb-0 text-nowrap table-hover table-centered" data-controller="sortable">
             <thead>
-            <tr>
+            <tr data-action="dragenter->sortable#onDragenter dragleave->sortable#onDragleave dragover->sortable#onDragover drop->sortable#onDrop">
               <th scope="col">Name</th>
               <th scope="col">Description</th>
               <% if current_user.staff_account %>
@@ -29,7 +29,7 @@
 
             <tbody>
             <% @form.questions.each do |question| %>
-              <tr>
+              <tr draggable="true" data-action="dragstart->sortable#onDragstart dragend->sortable#onDragend dragenter->sortable#onDragenter dragleave->sortable#onDragleave dragover->sortable#onDragover drop->sortable#onDrop" data-sort-value="<%= question.id %>">
                 <td><%= question.name %></td>
                 <td><%= question.description %></td>
                 <% if current_user.staff_account %>
